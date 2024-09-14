@@ -4,7 +4,7 @@ global with sharing class ErrorMailReceiver implements Messaging.InboundEmailHan
         Messaging.InboundEnvelope envelope
     ) {
         insert as system new OrgError__c(
-            txl_FullMailBody__c = mail.plainTextBody
+            txl_FullMailBody__c = mail.plainTextBody?.left(131072)
         );
 
         return new Messaging.InboundEmailResult();
