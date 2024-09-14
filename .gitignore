@@ -6,6 +6,7 @@
 .sfdx/
 .sf/
 .localdevserver/
+deploy-options.json
 
 #Snyk cache
 .dccache
@@ -18,6 +19,9 @@ IlluminatedCloud/
 projectFilesBackup/
 # LWC VSCode autocomplete
 **/lwc/jsconfig.json
+
+# LWC Jest coverage reports
+coverage/
 
 # Logs
 logs
@@ -48,3 +52,11 @@ package-lock.json
 mdapi/
 /.idea/
 .pmdCache
+
+# Local environment variables
+.env
+
+# Python Salesforce Functions
+**/__pycache__/
+**/.venv/
+**/venv/
