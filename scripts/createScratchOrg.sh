@@ -13,7 +13,7 @@ echo "Deleting old scratch org"
 sf org delete scratch --no-prompt --target-org $SCRATCH_ORG_ALIAS
 
 echo "Creating scratch org"
-execute sf org create scratch --alias $SCRATCH_ORG_ALIAS --set-default --definition-file ./config/scratch-org-def.json --duration-days 30
+execute sf org create scratch --alias $SCRATCH_ORG_ALIAS --set-default --definition-file ./config/project-scratch-def.json --duration-days 30
 
 echo "Pushing changes to scratch org"
 execute sf project deploy start
