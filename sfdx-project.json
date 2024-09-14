@@ -12,7 +12,7 @@
   ],
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "60.0",
+  "sourceApiVersion": "61.0",
   "packageAliases": {
     "org-error-inbox": "0HoVI0000002BLx0AM",
     "org-error-inbox@1.0.0-2": "04tVI0000002MvhYAE",
