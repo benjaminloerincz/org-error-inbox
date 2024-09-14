@@ -4,18 +4,18 @@ Salesforce Orgs can send out notification emails when unhandled exceptions happe
 
 **Features:**
 
-- **Custom Metadata** Tokenizer for flexible Email Parsing
-- Notify **Slack** Channel when email is received
-- [Explain errors and fixes using **OpenAI API** integration](https://youtu.be/dERb_22VSfI)
-- **Nice Dashboard** with Insights into your Errors
+-   **Custom Metadata** Tokenizer for flexible Email Parsing
+-   Notify **Slack** Channel when email is received
+-   [Explain errors and fixes using **OpenAI API** integration](https://youtu.be/dERb_22VSfI)
+-   **Nice Dashboard** with Insights into your Errors
 
 **Video Demo:**
 
-[![](http://img.youtube.com/vi/RKnqB8bjwdg/hqdefault.jpg)](https://youtu.be/RKnqB8bjwdg "")
+[![](http://img.youtube.com/vi/RKnqB8bjwdg/hqdefault.jpg)](https://youtu.be/RKnqB8bjwdg)
 
 ## How does it work?
 
-Salesforce orgs send out unhandled errors to the main admin's email address. If you redirect such email to this apps email service, it will receive and parse them into a Custom Object OrgError__c. 
+Salesforce orgs send out unhandled errors to the main admin's email address. If you redirect such email to this apps email service, it will receive and parse them into a Custom Object OrgError\_\_c.
 
 All this information is stored in a single Custom Object and can be easily used for reporting and sophisticated support workflows.
 
@@ -31,7 +31,6 @@ Deploy as source or install as Unlocked Package to your Production or Sandbox or
 
 [Install Unlocked Package (Sandbox)](https://test.salesforce.com/packaging/installPackage.apexp?p0=04tVI0000002n6HYAQ)
 
-
 ## How can I contribute and extend it?
 
 The project was built as a flexible unnamespaced SFDX project. The repo contains all the scripts to automatically build dev scratch orgs and sample data to play with.
@@ -39,4 +38,5 @@ The project was built as a flexible unnamespaced SFDX project. The repo contains
 Feel free to fork the repo and extend it. We would love to get improvements as Pull Request from you. Or create issues when you find a problem but don't want to fix it on your own.
 
 ---
+
 > NOTE: This app has a [bigger brother for AppExchange partners](https://github.com/rsoesemann/salesforce-isv-cockpit) that want to collect and proactivly manage app errors in their subscribers' orgs.

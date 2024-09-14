@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
     <columns>
         <field>CUST_NAME</field>
@@ -21,14 +21,15 @@
     <columns>
         <field>OrgError__c.txt_VisualforcePage__c</field>
     </columns>
-    <description>Org Errors within the last 7 days grouped by ApexClass</description>
+    <description
+    >Org Errors within the last 7 days grouped by ApexClass</description>
     <filter>
         <criteriaItems>
             <column>OrgError__c.txt_ApexClass__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>notEqual</operator>
-            <value></value>
+            <value />
         </criteriaItems>
     </filter>
     <format>Summary</format>

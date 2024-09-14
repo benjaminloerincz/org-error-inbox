@@ -1,19 +1,21 @@
 public with sharing class AddErrorInsights {
-
     // PUBLIC
 
-    @InvocableMethod(label = 'Add Error Insights from OpenAI')
+    @InvocableMethod(label='Add Error Insights from OpenAI')
     public static void execute(List<Id> errorIds) {
-        List<OrgError__c> errors = [SELECT txl_FullMailBody__c FROM OrgError__c 
-                                    WHERE Id IN :errorIds WITH SYSTEM_MODE];
+        List<OrgError__c> errors = [
+            SELECT txl_FullMailBody__c
+            FROM OrgError__c
+            WHERE Id IN :errorIds
+            WITH SYSTEM_MODE
+        ];
 
-        for(OrgError__c error : errors) {
+        for (OrgError__c error : errors) {
             error.txl_Hints__c = execute(error);
         }
 
         update as system errors;
     }
-
 
     // PRIVATE
 
@@ -23,17 +25,17 @@ public with sharing class AddErrorInsights {
         try {
             result = new Http().send(openAiRequestFor(error));
 
-            if(result.getStatusCode() != 200) {
+            if (result.getStatusCode() != 200) {
                 throw new ApplicationException('Error: ' + result.getStatus());
             }
-        } 
-        catch(Exception ex) {
+        } catch (Exception ex) {
             throw new ApplicationException('Error: ' + ex.getMessage());
         }
 
-        return OpenAiCompletions.response(result.getBody()).choices[0].message.content;
+        return OpenAiCompletions.response(result.getBody())
+            .choices[0]
+            .message.content;
     }
-
 
     private static HttpRequest openAiRequestFor(OrgError__c error) {
         HttpRequest result = new HttpRequest();
@@ -42,24 +44,36 @@ public with sharing class AddErrorInsights {
         result.setHeader('Content-Type', 'application/json');
         result.setHeader('Authorization', 'Bearer ' + openAiApiKey());
         result.setTimeout(120000);
-        result.setBody( new OpenAiCompletions.Request()
-                                .model('gpt-4')
-                                .message(new OpenAiCompletions.Message()
-                                                .role('system')
-                                                .content('You are an experienced Salesforce Developer of a large Customer Org.'))
-                                .message(new OpenAiCompletions.Message()
-                                                .role('user')
-                                                .content('You received the following automated error email from one of my subscriber orgs. What does it mean? \n\n' + error.txl_FullMailBody__c))
-                                .asJson() );
+        result.setBody(
+            new OpenAiCompletions.Request()
+                .model('gpt-4')
+                .message(
+                    new OpenAiCompletions.Message()
+                        .role('system')
+                        .content(
+                            'You are an experienced Salesforce Developer of a large Customer Org.'
+                        )
+                )
+                .message(
+                    new OpenAiCompletions.Message()
+                        .role('user')
+                        .content(
+                            'You received the following automated error email from one of my subscriber orgs. What does it mean? \n\n' +
+                            error.txl_FullMailBody__c
+                        )
+                )
+                .asJson()
+        );
         return result;
     }
 
-
     private static String openAiApiKey() {
         Settings__c result = Settings__c.getOrgDefaults();
-        
-        if(result == null || result.txt_OpenAiApiKey__c == null ) {
-            throw new ApplicationException('No OpenAI API Key found in Settings.');
+
+        if (result == null || result.txt_OpenAiApiKey__c == null) {
+            throw new ApplicationException(
+                'No OpenAI API Key found in Settings.'
+            );
         }
 
         return result.txt_OpenAiApiKey__c;

@@ -1,57 +1,76 @@
 public with sharing class Tokenizer {
-
-    private static final DescribeSObjectResult DESCRIBE = OrgError__c.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED);
+    private static final DescribeSObjectResult DESCRIBE = OrgError__c.SObjectType.getDescribe(
+        SObjectDescribeOptions.DEFERRED
+    );
 
     private Pattern regex;
     private List<SObjectField> fields = new List<SObjectField>();
-
 
     // CONSTRCUTOR
 
     public Tokenizer(Tokenizer__mdt record) {
         regex = Pattern.compile(record.txl_RegExp__c);
-        
-        for(String fieldValue : new List<String>{ record.txt_Group1Field__c, record.txt_Group2Field__c, record.txt_Group3Field__c, 
-                                                  record.txt_Group4Field__c, record.txt_Group5Field__c}) {
-            
-            SObjectField field = (fieldValue != null) ? DESCRIBE.fields.getMap().get(fieldValue) : null;
-            if(field != null) {
+
+        for (
+            String fieldValue : new List<String>{
+                record.txt_Group1Field__c,
+                record.txt_Group2Field__c,
+                record.txt_Group3Field__c,
+                record.txt_Group4Field__c,
+                record.txt_Group5Field__c
+            }
+        ) {
+            SObjectField field = (fieldValue != null)
+                ? DESCRIBE.fields.getMap().get(fieldValue)
+                : null;
+            if (field != null) {
                 fields.add(field);
             }
         }
     }
 
-
     // PUBLIC
 
     public void execute(OrgError__c error) {
-        Matcher match = regex.matcher( error.txl_FullMailBody__c );
+        Matcher match = regex.matcher(error.txl_FullMailBody__c);
 
-        if(match.find()) {
-            for(Integer index=0; index<fields.size(); index++) {
+        if (match.find()) {
+            for (Integer index = 0; index < fields.size(); index++) {
                 SObjectField field = fields.get(index);
-                String value = match.group(index + 1).abbreviate(field.getDescribe().getLength());
+                String value = match.group(index + 1)
+                    .abbreviate(field.getDescribe().getLength());
                 error.put(field, value);
             }
         }
     }
 
-
     public static List<Tokenizer> initialize() {
         List<Tokenizer> result = new List<Tokenizer>();
 
-        for(Tokenizer__mdt record : allActiveInOrder()) {
+        for (Tokenizer__mdt record : allActiveInOrder()) {
             result.add(new Tokenizer(record));
         }
-        
+
         return result;
     }
 
     public static List<Tokenizer__mdt> allActiveInOrder() {
-        return [SELECT DeveloperName, Label, chk_IsActive__c,num_Position__c,txl_RegExp__c,txt_Group1Field__c,txt_Group2Field__c,txt_Group3Field__c,txt_Group4Field__c,txt_Group5Field__c
-                FROM Tokenizer__mdt
-                WHERE chk_IsActive__c = true
-                WITH SYSTEM_MODE
-                ORDER BY num_Position__c];
+        return [
+            SELECT
+                DeveloperName,
+                Label,
+                chk_IsActive__c,
+                num_Position__c,
+                txl_RegExp__c,
+                txt_Group1Field__c,
+                txt_Group2Field__c,
+                txt_Group3Field__c,
+                txt_Group4Field__c,
+                txt_Group5Field__c
+            FROM Tokenizer__mdt
+            WHERE chk_IsActive__c = TRUE
+            WITH SYSTEM_MODE
+            ORDER BY num_Position__c
+        ];
     }
 }

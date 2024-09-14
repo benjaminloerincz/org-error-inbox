@@ -1,8 +1,21 @@
-<apex:page controller="SetupPageCtrl" title="Org Error Inbox - Setup" docType="html-5.0" sidebar="false" lightningStylesheets="true">
+<apex:page
+    controller="SetupPageCtrl"
+    title="Org Error Inbox - Setup"
+    docType="html-5.0"
+    sidebar="false"
+    lightningStylesheets="true"
+>
     <c:setup ctrl="{!controller}">
-        <c:setupStep title="Fetch App Error Emails (Mandatory)" step="{!setupEmailService}">
+        <c:setupStep
+            title="Fetch App Error Emails (Mandatory)"
+            step="{!setupEmailService}"
+        >
             <apex:pageBlock id="block" rendered="{!setupEmailService.isActive}">
-                <apex:pageBlockTable value="{!setupEmailService.tokenizers}" var="tokenizer" columnsWidth="10%,5%,10%,10%,10%,10%,10%,35%">
+                <apex:pageBlockTable
+                    value="{!setupEmailService.tokenizers}"
+                    var="tokenizer"
+                    columnsWidth="10%,5%,10%,10%,10%,10%,10%,35%"
+                >
                     <apex:column value="{!tokenizer.DeveloperName}" />
                     <apex:column value="{!tokenizer.num_Position__c}" />
                     <apex:column value="{!tokenizer.txt_Group1Field__c}" />
@@ -15,47 +28,107 @@
             </apex:pageBlock>
         </c:setupStep>
 
-        <c:setupStep title="Reparse errors via Batch (Optional)" step="{!setupReparse}" rendered="{!setupEmailService.isActive}">
-            <apex:pageBlock >
+        <c:setupStep
+            title="Reparse errors via Batch (Optional)"
+            step="{!setupReparse}"
+            rendered="{!setupEmailService.isActive}"
+        >
+            <apex:pageBlock>
                 <apex:pageBlockSection columns="2">
-                    <apex:outputLabel for="filter">Filter Condition</apex:outputLabel>
-                    <apex:inputTextarea id="filter" value="{!setupReparse.filter}" cols="20" rows="2" required="true" />
+                    <apex:outputLabel for="filter"
+                        >Filter Condition</apex:outputLabel
+                    >
+                    <apex:inputTextarea
+                        id="filter"
+                        value="{!setupReparse.filter}"
+                        cols="20"
+                        rows="2"
+                        required="true"
+                    />
                 </apex:pageBlockSection>
 
                 <apex:pageBlockSection columns="2">
-                    <apex:outputLabel for="batchSize">Batch size:</apex:outputLabel>
-                    <apex:input id="batchSize" value="{!setupReparse.batchSize}" type="number" size="100" required="true" />
+                    <apex:outputLabel for="batchSize"
+                        >Batch size:</apex:outputLabel
+                    >
+                    <apex:input
+                        id="batchSize"
+                        value="{!setupReparse.batchSize}"
+                        type="number"
+                        size="100"
+                        required="true"
+                    />
                 </apex:pageBlockSection>
 
-                <apex:commandButton action="{!setupReparse.refresh}" value="Refresh..." />
+                <apex:commandButton
+                    action="{!setupReparse.refresh}"
+                    value="Refresh..."
+                />
             </apex:pageBlock>
         </c:setupStep>
 
         <c:setupStep title="Get notified in Slack" step="{!setupSlack}">
-            <apex:pageBlock >
+            <apex:pageBlock>
                 <apex:pageBlockSection columns="1">
-                    <apex:inputText label="Slack Team Id" value="{!setupSlack.settings.txt_SlackTeam__c}" required="true" />
-                    <apex:inputText label="Slack Channel Id" value="{!setupSlack.settings.txt_SlackChannel__c}" required="true" />
+                    <apex:inputText
+                        label="Slack Team Id"
+                        value="{!setupSlack.settings.txt_SlackTeam__c}"
+                        required="true"
+                    />
+                    <apex:inputText
+                        label="Slack Channel Id"
+                        value="{!setupSlack.settings.txt_SlackChannel__c}"
+                        required="true"
+                    />
                 </apex:pageBlockSection>
             </apex:pageBlock>
         </c:setupStep>
 
-        <c:setupStep title="Connect OpenAI for Smart Insights" step="{!setupOpenAi}">
-            <apex:pageBlock >
+        <c:setupStep
+            title="Connect OpenAI for Smart Insights"
+            step="{!setupOpenAi}"
+        >
+            <apex:pageBlock>
                 <apex:pageBlockSection columns="1">
-                    <apex:inputSecret label="OpenAI API Key" value="{!setupOpenAi.settings.txt_OpenAiApiKey__c}" size="60" required="true" />
+                    <apex:inputSecret
+                        label="OpenAI API Key"
+                        value="{!setupOpenAi.settings.txt_OpenAiApiKey__c}"
+                        size="60"
+                        required="true"
+                    />
                 </apex:pageBlockSection>
             </apex:pageBlock>
         </c:setupStep>
 
         <c:setupStep title="Third-Party Licenses (click for details)">
-            <div class="slds-setup-assistant__step-summary-content slds-media__body">
-                This software uses the following open-source software. Their licenses require us to reproduce their copyright notice.
+            <div
+                class="slds-setup-assistant__step-summary-content slds-media__body"
+            >
+                This software uses the following open-source software. Their
+                licenses require us to reproduce their copyright notice.
             </div>
             <ul>
-                <li><a href="https://github.com/rsoesemann/app-setup/blob/master/LICENSE" target="_blank">rsoesemann/app-setup</a></li>
-                <li><a href="https://github.com/rsoesemann/apex-domainbuilder/blob/master/LICENSE" target="_blank">rsoesemann/apex-domainbuilder</a></li>
-                <li><a href="https://github.com/apexfarm/ApexTriggerHandler/blob/master/LICENSE" target="_blank">apexfarm/ApexTriggerHandler</a></li>
+                <li>
+                    <a
+                        href="https://github.com/rsoesemann/app-setup/blob/master/LICENSE"
+                        target="_blank"
+                        >rsoesemann/app-setup</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="https://github.com/rsoesemann/apex-domainbuilder/blob/master/LICENSE"
+                        target="_blank"
+                        >rsoesemann/apex-domainbuilder</a
+                    >
+                </li>
+                <li>
+                    <a
+                        href="https://github.com/apexfarm/ApexTriggerHandler/blob/master/LICENSE"
+                        target="_blank"
+                        >apexfarm/ApexTriggerHandler</a
+                    >
+                </li>
             </ul>
         </c:setupStep>
     </c:setup>

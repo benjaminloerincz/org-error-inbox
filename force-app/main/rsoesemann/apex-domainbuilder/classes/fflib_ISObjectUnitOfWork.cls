@@ -2,33 +2,32 @@
  * Copyright (c), FinancialForce.com, inc
  * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without modification, 
+ * Redistribution and use in source and binary forms, with or without modification,
  *   are permitted provided that the following conditions are met:
  *
- * - Redistributions of source code must retain the above copyright notice, 
+ * - Redistributions of source code must retain the above copyright notice,
  *      this list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright notice, 
- *      this list of conditions and the following disclaimer in the documentation 
+ * - Redistributions in binary form must reproduce the above copyright notice,
+ *      this list of conditions and the following disclaimer in the documentation
  *      and/or other materials provided with the distribution.
- * - Neither the name of the FinancialForce.com, inc nor the names of its contributors 
- *      may be used to endorse or promote products derived from this software without 
+ * - Neither the name of the FinancialForce.com, inc nor the names of its contributors
+ *      may be used to endorse or promote products derived from this software without
  *      specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- *  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES 
- *  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL 
- *  THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ *  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ *  OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
+ *  THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
  *  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
  *  OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
  *  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-**/
+ **/
 
 /**
  * @see fflib_SObjectUnitOfWork
  **/
-public interface fflib_ISObjectUnitOfWork
-{
+public interface fflib_ISObjectUnitOfWork {
     /**
      * Register a newly created SObject instance to be inserted when commitWork is called
      *
@@ -49,7 +48,11 @@ public interface fflib_ISObjectUnitOfWork
      * @param relatedToParentField A SObjectField reference to the child field that associates the child record with its parent
      * @param relatedToParentRecord A SObject instance of the parent record (should also be registered as new separately)
      **/
-    void registerNew(SObject record, Schema.SObjectField relatedToParentField, SObject relatedToParentRecord);
+    void registerNew(
+        SObject record,
+        Schema.SObjectField relatedToParentField,
+        SObject relatedToParentRecord
+    );
     /**
      * Register a relationship between two records that have yet to be inserted to the database. This information will be
      *  used during the commitWork phase to make the references only when related records have been inserted to the database.
@@ -58,7 +61,11 @@ public interface fflib_ISObjectUnitOfWork
      * @param relatedToField A SObjectField reference to the lookup field that relates the two records together
      * @param relatedTo A SObject instance (yet to be committed to the database)
      */
-    void registerRelationship(SObject record, Schema.SObjectField relatedToField, SObject relatedTo);
+    void registerRelationship(
+        SObject record,
+        Schema.SObjectField relatedToField,
+        SObject relatedTo
+    );
     /**
      * Registers a relationship between a record and a Messaging.Email where the record has yet to be inserted
      *  to the database.  This information will be
@@ -67,7 +74,10 @@ public interface fflib_ISObjectUnitOfWork
      * @param email a single email message instance
      * @param relatedTo A SObject instance (yet to be committed to the database)
      */
-    void registerRelationship(Messaging.SingleEmailMessage email, SObject relatedTo);
+    void registerRelationship(
+        Messaging.SingleEmailMessage email,
+        SObject relatedTo
+    );
     /**
      * Registers a relationship between a record and a lookup value using an external ID field and a provided value. This
      * information will be used during the commitWork phase to make the lookup reference requested when inserted to the database.
@@ -81,7 +91,12 @@ public interface fflib_ISObjectUnitOfWork
      *
      * Wraps putSObject, creating a new instance of the lookup sobject using the external id field and value.
      */
-     void registerRelationship(SObject record, Schema.SObjectField relatedToField, Schema.SObjectField externalIdField, Object externalId);
+    void registerRelationship(
+        SObject record,
+        Schema.SObjectField relatedToField,
+        Schema.SObjectField externalIdField,
+        Object externalId
+    );
     /**
      * Register an existing record to be updated during the commitWork method
      *
@@ -116,7 +131,11 @@ public interface fflib_ISObjectUnitOfWork
      * @param relatedToParentField A SObjectField reference to the child field that associates the child record with its parent
      * @param relatedToParentRecord A SObject instance of the parent record (should also be registered as new separately)
      **/
-    void registerDirty(SObject record, Schema.SObjectField relatedToParentField, SObject relatedToParentRecord);
+    void registerDirty(
+        SObject record,
+        Schema.SObjectField relatedToParentField,
+        SObject relatedToParentRecord
+    );
     /**
      * Register a list of existing records to be updated during the commitWork method
      *
@@ -124,16 +143,16 @@ public interface fflib_ISObjectUnitOfWork
      **/
     void registerDirty(List<SObject> records);
     /**
-	 * Register an deleted record to be removed from the recycle bin during the commitWork method
-	 *
-	 * @param record An deleted record
-	 **/
+     * Register an deleted record to be removed from the recycle bin during the commitWork method
+     *
+     * @param record An deleted record
+     **/
     void registerEmptyRecycleBin(SObject record);
     /**
-	 * Register deleted records to be removed from the recycle bin during the commitWork method
-	 *
-	 * @param records Deleted records
-	 **/
+     * Register deleted records to be removed from the recycle bin during the commitWork method
+     *
+     * @param records Deleted records
+     **/
     void registerEmptyRecycleBin(List<SObject> records);
     /**
      * Register a new or existing record to be inserted or updated during the commitWork method

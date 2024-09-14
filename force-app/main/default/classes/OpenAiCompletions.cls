@@ -1,5 +1,4 @@
 public with sharing class OpenAiCompletions {
-
     public static Response response(String jsonString) {
         return (Response) JSON.deserialize(jsonString, Response.class);
     }
@@ -28,7 +27,6 @@ public with sharing class OpenAiCompletions {
         }
     }
 
-
     public class Message {
         public String role;
         public String content;
@@ -44,7 +42,6 @@ public with sharing class OpenAiCompletions {
         }
     }
 
-
     public class Response {
         public List<Choice> choices = new List<Choice>();
 
@@ -59,7 +56,6 @@ public with sharing class OpenAiCompletions {
             return withChoice(new Message().content(message));
         }
     }
-
 
     // PMD Json Wrapper needs to match API properties with _
     @SuppressWarnings('PMD.FieldNamingConventions')

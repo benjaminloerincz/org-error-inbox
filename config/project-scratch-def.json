@@ -1,20 +1,20 @@
 {
-  "orgName": "org-error-inbox_DEV",
-  "edition": "Developer",
-  "language": "en_US",
-  "features": ["FieldAuditTrail","EnableSetPasswordInApi"],
-  "settings": {
-    "lightningExperienceSettings": {
-      "enableS1DesktopEnabled": true
-    },
-    "mobileSettings": {
-        "enableS1EncryptedStoragePref2": true
-    },
-    "deploymentSettings": {
-      "doesSkipAsyncApexValidation": true
-    },
-    "appAnalyticsSettings": {
-      "enableSimulationMode": true
+    "orgName": "org-error-inbox_DEV",
+    "edition": "Developer",
+    "language": "en_US",
+    "features": ["FieldAuditTrail", "EnableSetPasswordInApi"],
+    "settings": {
+        "lightningExperienceSettings": {
+            "enableS1DesktopEnabled": true
+        },
+        "mobileSettings": {
+            "enableS1EncryptedStoragePref2": true
+        },
+        "deploymentSettings": {
+            "doesSkipAsyncApexValidation": true
+        },
+        "appAnalyticsSettings": {
+            "enableSimulationMode": true
+        }
     }
-  }
 }
