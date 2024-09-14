@@ -19,7 +19,7 @@
             </value>
         </inputParameters>
     </actionCalls>
-    <apiVersion>57.0</apiVersion>
+    <apiVersion>61.0</apiVersion>
     <environments>Default</environments>
     <interviewLabel>Add Error Insights from OpenAI {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Add Error Insights from OpenAI</label>
